@@ -11,9 +11,7 @@ public class HttpSessionAdapter extends AbstractSession{
 	private static final ThreadLocal<HttpSession> tl = new ThreadLocal<HttpSession>();
 	
 	public static void setHttpSession(HttpSession session){
-		if(tl.get() == null){
-			tl.set(session);
-		}
+		tl.set(session);
 	}
 	
 	public static void destoryHttpSession(){
