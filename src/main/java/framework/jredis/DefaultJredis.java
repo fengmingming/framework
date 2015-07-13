@@ -29,6 +29,8 @@ public class DefaultJredis implements IJredis{
 	
 	private Integer port;
 	
+	private int timeout = 10000;
+	
 	private boolean isStrict = false;
 	
 	@Override
@@ -141,6 +143,7 @@ public class DefaultJredis implements IJredis{
 					}
 					factory.setHostName(this.host);
 					factory.setPort(this.port);
+					factory.setTimeout(this.timeout);
 					factory.afterPropertiesSet();
 					this.redisTemplate = new RedisTemplate<String, Object>();
 					this.redisTemplate.setConnectionFactory(factory);
@@ -233,6 +236,14 @@ public class DefaultJredis implements IJredis{
 
 	public void setStrict(boolean isStrict) {
 		this.isStrict = isStrict;
+	}
+
+	public int getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
 	}
 
 }
