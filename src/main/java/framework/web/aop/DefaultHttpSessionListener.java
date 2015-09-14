@@ -1,5 +1,7 @@
 package framework.web.aop;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,44 +12,20 @@ import framework.web.session.HttpSessionAdapter;
 
 public class DefaultHttpSessionListener implements HandlerInterceptor{
 	
-	private String staUrl;
-	private String dynUrl;
-	private String rootUrl;
-	private String imgUrl;
+	private Map<String,Object> reqParams;
 	
-	public String getStaUrl() {
-		return staUrl;
-	}
-
-	public void setStaUrl(String staUrl) {
-		this.staUrl = staUrl;
-	}
-
-	public String getDynUrl() {
-		return dynUrl;
-	}
-
-	public void setDynUrl(String dynUrl) {
-		this.dynUrl = dynUrl;
-	}
-
-	public String getRootUrl() {
-		return rootUrl;
-	}
-
-	public void setRootUrl(String rootUrl) {
-		this.rootUrl = rootUrl;
-	}
+	private String domain = "*";
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Origin", this.domain);
 		HttpSessionAdapter.setHttpSession(request.getSession(true));
-		request.setAttribute("staUrl", staUrl);
-		request.setAttribute("dynUrl", dynUrl);
-		request.setAttribute("rootUrl", rootUrl);
-		request.setAttribute("imgUrl", imgUrl);
+		if(reqParams != null && reqParams.size() > 0){
+			for(String key:reqParams.keySet()){
+				request.setAttribute(key, reqParams.get(key));
+			}
+		}
 		return true;
 	}
 
@@ -65,12 +43,20 @@ public class DefaultHttpSessionListener implements HandlerInterceptor{
 		HttpSessionAdapter.destoryHttpSession();
 	}
 
-	public String getImgUrl() {
-		return imgUrl;
+	public Map<String,Object> getReqParams() {
+		return reqParams;
 	}
 
-	public void setImgUrl(String imgUrl) {
-		this.imgUrl = imgUrl;
+	public void setReqParams(Map<String,Object> reqParams) {
+		this.reqParams = reqParams;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 	
 }
