@@ -14,7 +14,7 @@ public class SuperRes implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private boolean isSuccess = true;
+	private boolean success = true;
 	private long errCode;
 	private String errMsg = "";
 	
@@ -42,10 +42,10 @@ public class SuperRes implements Serializable{
 	
 	
 	public boolean isSuccess() {
-		return isSuccess;
+		return success;
 	}
-	public void setSuccess(boolean isSuccess) {
-		this.isSuccess = isSuccess;
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
 	public long getErrCode() {
 		return errCode;
