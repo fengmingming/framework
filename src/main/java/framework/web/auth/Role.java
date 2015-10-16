@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Role {
 	String value() default "*";
-	Class<? extends IRoleHandler> handler() default DefaultRoleHandler.class;
+	Class<? extends IRoleHandler> handler();
 }

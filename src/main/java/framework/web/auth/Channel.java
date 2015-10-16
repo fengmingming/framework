@@ -10,10 +10,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Channel {
-	int ALL = 0;
-	int WEB = 1;
-	int CMS = 2;
 	String value() default "";
-	int channel() default ALL;
-	Class<? extends IChannelHandler> handler() default DefaultChannelHandler.class;
+
+	Class<? extends IChannelHandler> handler();
 }
