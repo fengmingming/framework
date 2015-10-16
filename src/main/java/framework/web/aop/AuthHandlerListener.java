@@ -22,6 +22,30 @@ import framework.web.auth.Role;
 public class AuthHandlerListener implements HandlerInterceptor{
 	
 	private IsLoginHandler isLoginH;
+	public IsLoginHandler getIsLoginH() {
+		return isLoginH;
+	}
+
+	public void setIsLoginH(IsLoginHandler isLoginH) {
+		this.isLoginH = isLoginH;
+	}
+
+	public IChannelHandler getChannelH() {
+		return channelH;
+	}
+
+	public void setChannelH(IChannelHandler channelH) {
+		this.channelH = channelH;
+	}
+
+	public IRoleHandler getRoleH() {
+		return roleH;
+	}
+
+	public void setRoleH(IRoleHandler roleH) {
+		this.roleH = roleH;
+	}
+
 	private IChannelHandler channelH;
 	private IRoleHandler roleH;
 	

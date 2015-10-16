@@ -25,7 +25,7 @@ public class DefaultRedisSessionListener implements HandlerInterceptor{
 
 	private ConcurrentHashMap<String,Object> reqParams;
 	
-	private String domain;
+	private String domain = "*";
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,
