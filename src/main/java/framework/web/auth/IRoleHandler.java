@@ -5,6 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface IRoleHandler {
 	
-	public boolean handler(HttpServletRequest req,HttpServletResponse res,String value);
+	public boolean handler(HttpServletRequest req,HttpServletResponse res,boolean value);
 	
 }

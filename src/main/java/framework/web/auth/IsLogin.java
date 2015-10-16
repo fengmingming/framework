@@ -10,7 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface IsLogin {
-	String value() default "";
-
-	Class<? extends IsLoginHandler> handler();
+	boolean value() default true;
 }

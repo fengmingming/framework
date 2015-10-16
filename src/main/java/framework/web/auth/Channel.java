@@ -10,7 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Channel {
-	String value() default "";
-
-	Class<? extends IChannelHandler> handler();
+	String[] value() default {};
 }

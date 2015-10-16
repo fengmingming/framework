@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,8 +16,6 @@ import framework.web.session.JredisSessionAdapter;
 import framework.web.session.Session;
 
 public class DefaultRedisSessionListener implements HandlerInterceptor{
-	
-	private static Logger log = LoggerFactory.getLogger(DefaultRedisSessionListener.class);
 	
 	private IJredis redis;
 	
