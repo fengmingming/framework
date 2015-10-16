@@ -10,6 +10,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Role {
-	String value() default "*";
+	
+	String value() default "";
+	
 	Class<? extends IRoleHandler> handler();
 }

@@ -1,8 +1,5 @@
 package framework.web.aop;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,60 +21,27 @@ import framework.web.auth.Role;
  * */
 public class AuthHandlerListener implements HandlerInterceptor{
 	
-	private Map<Class<? extends IsLoginHandler>, IsLoginHandler> loginHM = new ConcurrentHashMap<Class<? extends IsLoginHandler>, IsLoginHandler>();
-	private Map<Class<? extends IChannelHandler>, IChannelHandler> channelHM = new ConcurrentHashMap<Class<? extends IChannelHandler>, IChannelHandler>();
-	private Map<Class<? extends IRoleHandler>, IRoleHandler> roleHM = new ConcurrentHashMap<Class<? extends IRoleHandler>, IRoleHandler>();
+	private IsLoginHandler isLoginH;
+	private IChannelHandler channelH;
+	private IRoleHandler roleH;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
 		HandlerMethod method = (HandlerMethod) handler;
-		//判断是否需要验证登陆，及验证
 		IsLogin annotation = method.getMethodAnnotation(IsLogin.class);
-		if(annotation != null){
-			IsLoginHandler isLoginH = loginHM.get(annotation.handler());
-			if(isLoginH == null){
-				synchronized (annotation.handler()) {
-					isLoginH = loginHM.get(annotation.handler());
-					if(isLoginH == null){
-						isLoginH = annotation.handler().newInstance();
-						loginHM.put(annotation.handler(), isLoginH);
-					}
-				}
-			}
+		if(annotation != null && isLoginH != null){
 			if(!isLoginH.handler(req, res, annotation.value())){
 				return false;
 			}
 		}
-		//判断是否需要验证渠道，及验证
 		Channel channelA = method.getMethodAnnotation(Channel.class);
-		if(channelA != null){
-			IChannelHandler channelH = channelHM.get(channelA.handler());
-			if(channelH == null){
-				synchronized (channelA.handler()) {
-					channelH = channelHM.get(channelA.handler());
-					if(channelH == null){
-						channelH = channelA.handler().newInstance();
-						channelHM.put(channelA.handler(), channelH);
-					}
-				}
-			}
+		if(channelA != null&&channelH != null){
 			if(!channelH.handler(req, res, channelA.value())){
 				return false;
 			}
 		}
-		//判断是否需要验证角色，及验证
 		Role roleA = method.getMethodAnnotation(Role.class);
-		if(roleA != null){
-			IRoleHandler roleH = roleHM.get(roleA.handler());
-			if(roleH == null){
-				synchronized (roleA.handler()) {
-					roleH = roleHM.get(roleA.handler());
-					if(roleH == null){
-						roleH = roleA.handler().newInstance();
-						roleHM.put(roleA.handler(), roleH);
-					}
-				}
-			}
+		if(roleA != null&&roleH != null){
 			if(!roleH.handler(req, res, channelA.value())){
 				return false;
 			}

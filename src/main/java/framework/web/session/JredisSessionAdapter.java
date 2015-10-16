@@ -30,11 +30,7 @@ public class JredisSessionAdapter extends AbstractSession{
 	}
 	
 	public static void setSession(Session session){
-		if(tl.get() == null){
-			tl.set(session);
-		}else{
-			throw new ApplicationException("set session into sessionadapter error session is exist");
-		}
+		tl.set(session);
 	}
 	
 	public static void destorySession(){
