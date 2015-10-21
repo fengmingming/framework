@@ -60,14 +60,14 @@ public class AuthHandlerListener implements HandlerInterceptor{
 					if(roleH != null && !roleH.handler(req, res, roleA == null?false:roleA.value())){
 						return false;
 					}
+					Channel channelA = method.getMethodAnnotation(Channel.class);
+					if(channelH != null && !channelH.handler(req, res, channelA == null?new String[]{}:channelA.value())){
+						return false;
+					}
 				}
 			}else{
 				return false;
 			}
-		}
-		Channel channelA = method.getMethodAnnotation(Channel.class);
-		if(channelH != null && !channelH.handler(req, res, channelA == null?new String[]{}:channelA.value())){
-			return false;
 		}
 		return true;
 	}
