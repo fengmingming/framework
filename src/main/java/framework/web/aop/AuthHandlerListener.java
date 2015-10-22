@@ -53,21 +53,16 @@ public class AuthHandlerListener implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
 		HandlerMethod method = (HandlerMethod) handler;
 		IsLogin isLoginA = method.getMethodAnnotation(IsLogin.class);
-		if(isLoginH != null){
-			if(isLoginH.handler(req, res, isLoginA == null?true:isLoginA.value())){
-				if(isLoginA == null||isLoginA.value()){
-					Role roleA = method.getMethodAnnotation(Role.class);
-					if(roleH != null && !roleH.handler(req, res, roleA == null?false:roleA.value())){
-						return false;
-					}
-					Channel channelA = method.getMethodAnnotation(Channel.class);
-					if(channelH != null && !channelH.handler(req, res, channelA == null?new String[]{}:channelA.value())){
-						return false;
-					}
-				}
-			}else{
-				return false;
-			}
+		if(isLoginH != null && !isLoginH.handler(req, res, isLoginA == null?true:isLoginA.value())){
+			return false;
+		}
+		Role roleA = method.getMethodAnnotation(Role.class);
+		if(roleH != null && !roleH.handler(req, res, roleA == null?false:roleA.value())){
+			return false;
+		}
+		Channel channelA = method.getMethodAnnotation(Channel.class);
+		if(channelH != null && !channelH.handler(req, res, channelA == null?new String[]{}:channelA.value())){
+			return false;
 		}
 		return true;
 	}
