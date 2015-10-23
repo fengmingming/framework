@@ -9,4 +9,6 @@ public interface ISession {
 	public void replace(Object key,Object value);
 
 	public void delete(Object key);
+	
+	public void flush();
 }

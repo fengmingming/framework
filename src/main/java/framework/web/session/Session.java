@@ -52,4 +52,8 @@ public class Session implements Serializable{
 		this.attribute.remove(key);
 	}
 	
+	public void removeAll(){
+		this.attribute.clear();
+	}
+	
 }

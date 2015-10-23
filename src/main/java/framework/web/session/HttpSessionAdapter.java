@@ -1,6 +1,7 @@
 package framework.web.session;
 
 import java.io.Serializable;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpSession;
 
@@ -54,6 +55,15 @@ public class HttpSessionAdapter extends AbstractSession{
 		}
 		if(tl.get() == null){
 			throw new ApplicationException("HttpSession is disable");
+		}
+	}
+
+	@Override
+	public void flush() {
+		HttpSession session = tl.get();
+		Enumeration<String> enumers = session.getAttributeNames();
+		while(enumers.hasMoreElements()){
+			session.removeAttribute(enumers.nextElement());
 		}
 	}
 }

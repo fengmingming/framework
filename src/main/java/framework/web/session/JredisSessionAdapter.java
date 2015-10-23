@@ -58,5 +58,10 @@ public class JredisSessionAdapter extends AbstractSession{
 		validate(key,value);
 		getSession().setAttribute((String) key, value);
 	}
+
+	@Override
+	public void flush() {
+		getSession().removeAll();
+	}
 	
 }
